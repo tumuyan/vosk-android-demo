@@ -81,7 +81,7 @@ public class VoskActivity extends Activity implements
     }
 
     private void initModel() {
-        StorageService.unpack(this, "model-en-us", "model",
+        StorageService.unpack(this, "model-small-cn", "model",
                 (model) -> {
                     this.model = model;
                     setUiState(STATE_READY);
@@ -206,11 +206,10 @@ public class VoskActivity extends Activity implements
         } else {
             setUiState(STATE_FILE);
             try {
-                Recognizer rec = new Recognizer(model, 16000.f, "[\"one zero zero zero one\", " +
-                        "\"oh zero one two three four five six seven eight nine\", \"[unk]\"]");
+                Recognizer rec = new Recognizer(model, 16000.f *2);
 
                 InputStream ais = getAssets().open(
-                        "10001-90210-01803.wav");
+                        "10002-2022-06-30-18-21-28-120.wav");
                 if (ais.skip(44) != 44) throw new IOException("File too short");
 
                 speechStreamService = new SpeechStreamService(rec, ais, 16000);
